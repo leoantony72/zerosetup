@@ -3,6 +3,9 @@
 #include <optional>
 
 #include "flutter/generated_plugin_registrant.h"
+#include <flutter/method_channel.h>
+#include <flutter/standard_method_codec.h>
+#include <flutter/encodable_value.h>
 
 FlutterWindow::FlutterWindow(const flutter::DartProject& project)
     : project_(project) {}
@@ -65,6 +68,21 @@ FlutterWindow::MessageHandler(HWND hwnd, UINT const message,
     case WM_FONTCHANGE:
       flutter_controller_->engine()->ReloadSystemFonts();
       break;
+    case WM_COPYDATA: {
+      PCOPYDATASTRUCT pcds = reinterpret_cast<PCOPYDATASTRUCT>(lparam);
+      if (pcds->dwData == 1) { // Our custom ID for deep links
+        std::string uri(reinterpret_cast<char*>(pcds->lpData));
+        if (flutter_controller_) {
+          auto messenger = flutter_controller_->engine()->messenger();
+          auto channel = std::make_unique<flutter::MethodChannel<>>(
+              messenger, "com.zerosetup/deeplink",
+              &flutter::StandardMethodCodec::GetInstance());
+          
+          channel->InvokeMethod("onLink", std::make_unique<flutter::EncodableValue>(uri));
+        }
+      }
+      return TRUE;
+    }
   }
 
   return Win32Window::MessageHandler(hwnd, message, wparam, lparam);

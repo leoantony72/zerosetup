@@ -16,12 +16,14 @@ class SideNav extends StatelessWidget {
   final List<NavItem> navItems;
   final int selectedIndex;
   final ValueChanged<int> onNavTap;
+  final VoidCallback? onNewWorkflowTap;
 
   const SideNav({
     super.key,
     required this.navItems,
     required this.selectedIndex,
     required this.onNavTap,
+    this.onNewWorkflowTap,
   });
 
   @override
@@ -80,6 +82,7 @@ class SideNav extends StatelessWidget {
           GradientButton(
             label: 'New Workflow',
             icon: Icons.add_rounded,
+            onTap: onNewWorkflowTap,
           ),
         ],
       ),

@@ -6,6 +6,9 @@ import 'sections/personas_section.dart';
 import '../installed/installed_view.dart';
 import '../library/library_view.dart';
 import '../personas/personas_view.dart';
+import '../settings/settings_view.dart';
+import '../workflow/create_workflow_view.dart';
+import '../workflow/workflows_view.dart';
 import '../../theme/app_colors.dart';
 
 // ─── Nav route data ────────────────────────────────────────────────────────────
@@ -14,6 +17,7 @@ const List<NavItem> _kNavItems = [
   NavItem(icon: Icons.folder_open_rounded, label: 'Library'),
   NavItem(icon: Icons.download_done_rounded, label: 'Installed'),
   NavItem(icon: Icons.psychology_rounded, label: 'Personas'),
+  NavItem(icon: Icons.schema_rounded, label: 'Workflows'),
   NavItem(icon: Icons.settings_rounded, label: 'Settings'),
 ];
 
@@ -44,6 +48,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             navItems: _kNavItems,
             selectedIndex: _selectedNavIndex,
             onNavTap: (i) => setState(() => _selectedNavIndex = i),
+            onNewWorkflowTap: () => setState(() => _selectedNavIndex = 6),
           ),
 
           // ── Main Canvas ────────────────────────────────────────────────────
@@ -51,15 +56,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
             child: Stack(
               children: [
                 // Scrollable page sections
-                SingleChildScrollView(
-                  padding: const EdgeInsets.only(
-                    top: 100,
-                    left: 40,
-                    right: 40,
-                    bottom: 40,
-                  ),
-                  child: _buildBody(_selectedNavIndex),
-                ),
+                _selectedNavIndex == 6 
+                    ? Padding( // Workflow builder has custom scrolling/layout
+                        padding: const EdgeInsets.only(top: 80),
+                        child: _buildBody(_selectedNavIndex),
+                      )
+                    : SingleChildScrollView(
+                        padding: const EdgeInsets.only(
+                          top: 100,
+                          left: 40,
+                          right: 40,
+                          bottom: 40,
+                        ),
+                        child: _buildBody(_selectedNavIndex),
+                      ),
 
                 // Floating glass top bar pinned to top of canvas
                 const Positioned(
@@ -86,6 +96,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
         return const InstalledView();
       case 3:
         return const PersonasView();
+      case 4:
+        return const WorkflowsView();
+      case 5:
+        return const SettingsView();
+      case 6:
+        return const CreateWorkflowView();
       default:
         return Center(
           child: Padding(

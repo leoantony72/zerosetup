@@ -17,6 +17,32 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
   // plugins.
   ::CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
 
+  // ── Single Instance & Deep Link Handling ──────────────────────────────────
+  const wchar_t* mutex_name = L"zerosetup_app_mutex";
+  HANDLE hMutex = CreateMutex(NULL, TRUE, mutex_name);
+  if (GetLastError() == ERROR_ALREADY_EXISTS) {
+    // Another instance is running. Try to find its window.
+    HWND hwnd = FindWindow(L"FLUTTER_RUNNER_WIN32_WINDOW", L"zerosetup");
+    if (hwnd) {
+      // Pass the command line to the existing instance
+      std::vector<std::string> args = GetCommandLineArguments();
+      if (!args.empty()) {
+        // We use WM_COPYDATA to send the URL to the main window
+        COPYDATASTRUCT cds;
+        cds.dwData = 1; // Custom ID for URI
+        cds.cbData = static_cast<DWORD>(args[0].size() + 1);
+        cds.lpData = const_cast<char*>(args[0].c_str());
+        SendMessage(hwnd, WM_COPYDATA, (WPARAM)hwnd, (LPARAM)&cds);
+      }
+      // Bring the existing window to front
+      ShowWindow(hwnd, SW_RESTORE);
+      SetForegroundWindow(hwnd);
+    }
+    if (hMutex) CloseHandle(hMutex);
+    return EXIT_SUCCESS;
+  }
+  // ─────────────────────────────────────────────────────────────────────────
+
   flutter::DartProject project(L"data");
 
   std::vector<std::string> command_line_arguments =
@@ -38,6 +64,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
     ::DispatchMessage(&msg);
   }
 
+  if (hMutex) {
+    ReleaseMutex(hMutex);
+    CloseHandle(hMutex);
+  }
   ::CoUninitialize();
   return EXIT_SUCCESS;
 }
