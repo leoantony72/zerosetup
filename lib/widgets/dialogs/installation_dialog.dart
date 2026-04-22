@@ -22,6 +22,7 @@ class InstallationToolItem {
 class InstallationDialog extends StatelessWidget {
   final String title;
   final String subtitle;
+  final String? size;
   final List<InstallationToolItem> tools;
   final VoidCallback onCancel;
   final VoidCallback onInstall;
@@ -30,6 +31,7 @@ class InstallationDialog extends StatelessWidget {
     super.key,
     required this.title,
     required this.subtitle,
+    this.size,
     required this.tools,
     required this.onCancel,
     required this.onInstall,
@@ -39,6 +41,7 @@ class InstallationDialog extends StatelessWidget {
     required BuildContext context,
     required String title,
     required String subtitle,
+    String? size,
     required List<InstallationToolItem> tools,
   }) {
     return showDialog<T>(
@@ -54,6 +57,7 @@ class InstallationDialog extends StatelessWidget {
             child: InstallationDialog(
               title: title,
               subtitle: subtitle,
+              size: size,
               tools: tools,
               onCancel: () => Navigator.of(context).pop(),
               onInstall: () => Navigator.of(context).pop(true),
@@ -134,6 +138,31 @@ class InstallationDialog extends StatelessWidget {
                       color: AppColors.onSurfaceVariant,
                     ),
                   ),
+                  if (size != null) ...[
+                    const SizedBox(height: 16),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      decoration: BoxDecoration(
+                        color: AppColors.primary.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.info_outline, size: 16, color: AppColors.primary),
+                          const SizedBox(width: 8),
+                          Text(
+                            'Package Size: $size',
+                            style: GoogleFonts.plusJakartaSans(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.primary,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ],
               ),
             ),

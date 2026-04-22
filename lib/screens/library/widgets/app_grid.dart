@@ -13,10 +13,10 @@ class AppGrid extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 400,
-        mainAxisExtent: 340,
-        crossAxisSpacing: 24,
-        mainAxisSpacing: 24,
+        maxCrossAxisExtent: 300,
+        mainAxisExtent: 280,
+        crossAxisSpacing: 16,
+        mainAxisSpacing: 16,
       ),
       itemCount: apps.length,
       itemBuilder: (context, index) {

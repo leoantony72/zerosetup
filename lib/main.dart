@@ -5,6 +5,7 @@ import 'app.dart';
 import 'services/settings_service.dart';
 import 'services/protocol_service.dart';
 import 'services/auth_service.dart';
+import 'services/initialization_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +26,9 @@ Future<void> main() async {
 
   // Initialize Settings
   await SettingsService().init();
+
+  // Start background data loading
+  InitializationService.init();
 
   runApp(const AutomationCoreApp());
 }

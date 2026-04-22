@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../theme/app_colors.dart';
 
-class ActiveServices extends StatelessWidget {
+class ActiveServices extends StatefulWidget {
   const ActiveServices({super.key});
+
+  @override
+  State<ActiveServices> createState() => _ActiveServicesState();
+}
+
+class _ActiveServicesState extends State<ActiveServices> {
+  bool _isMinimized = false;
 
   @override
   Widget build(BuildContext context) {
@@ -13,48 +20,63 @@ class ActiveServices extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              'Running Services',
-              style: GoogleFonts.plusJakartaSans(
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-                color: AppColors.onSurface,
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-              decoration: BoxDecoration(
-                color: AppColors.primary.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(999),
-              ),
-              child: Text(
-                '3 ACTIVE',
-                style: GoogleFonts.plusJakartaSans(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 0.5,
-                  color: AppColors.primary,
+            Row(
+              children: [
+                Text(
+                  'Running Services',
+                  style: GoogleFonts.plusJakartaSans(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.onSurface,
+                  ),
                 ),
+                const SizedBox(width: 12),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: AppColors.primary.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(999),
+                  ),
+                  child: Text(
+                    '2 ACTIVE',
+                    style: GoogleFonts.plusJakartaSans(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: 0.5,
+                      color: AppColors.primary,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            IconButton(
+              onPressed: () => setState(() => _isMinimized = !_isMinimized),
+              icon: Icon(
+                _isMinimized ? Icons.keyboard_arrow_down_rounded : Icons.keyboard_arrow_up_rounded,
+                color: AppColors.onSurfaceVariant,
               ),
+              tooltip: _isMinimized ? 'Expand Services' : 'Minimize Services',
             ),
           ],
         ),
-        const SizedBox(height: 16),
-        const ServiceCard(
-          title: 'PostgreSQL',
-          icon: Icons.storage_rounded,
-          iconColor: AppColors.primary,
-          subtitle: 'v15.3 • Port 5432 • Localhost',
-          tags: ['Primary DB', 'Auto-start'],
-        ),
-        const SizedBox(height: 24),
-        const ServiceCard(
-          title: 'Redis Cache',
-          icon: Icons.memory_rounded,
-          iconColor: AppColors.tertiary,
-          subtitle: 'v7.0.11 • Port 6379 • Localhost',
-          tags: ['In-Memory'],
-        ),
+        if (!_isMinimized) ...[
+          const SizedBox(height: 16),
+          const ServiceCard(
+            title: 'PostgreSQL',
+            icon: Icons.storage_rounded,
+            iconColor: AppColors.primary,
+            subtitle: 'v15.3 • Port 5432 • Localhost',
+            tags: ['Primary DB', 'Auto-start'],
+          ),
+          const SizedBox(height: 24),
+          const ServiceCard(
+            title: 'Redis Cache',
+            icon: Icons.memory_rounded,
+            iconColor: AppColors.tertiary,
+            subtitle: 'v7.0.11 • Port 6379 • Localhost',
+            tags: ['In-Memory'],
+          ),
+        ],
       ],
     );
   }

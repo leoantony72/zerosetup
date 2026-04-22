@@ -17,31 +17,12 @@ class InstalledView extends StatelessWidget {
         const SizedBox(height: 48),
         const UpgradeAlertBanner(),
         const SizedBox(height: 48),
-        LayoutBuilder(
-          builder: (ctx, constraints) {
-            final isWide = constraints.maxWidth > 800;
-
-            if (isWide) {
-              return const Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(flex: 2, child: ActiveServices()),
-                  SizedBox(width: 32),
-                  Expanded(flex: 1, child: InstalledApps()),
-                ],
-              );
-            }
-
-            return const Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                ActiveServices(),
-                SizedBox(height: 32),
-                InstalledApps(),
-              ],
-            );
-          },
-        ),
+        const ActiveServices(),
+        const SizedBox(height: 48),
+        const Divider(height: 1),
+        const SizedBox(height: 48),
+        const InstalledApps(),
+        const SizedBox(height: 48),
       ],
     );
   }
