@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../theme/app_colors.dart';
 import '../../../../models/program.dart';
 import '../../../../services/program_service.dart';
 import '../../../../services/detection_service.dart';
+import '../../../../services/icon_service.dart';
 
 class InstalledApps extends StatefulWidget {
   const InstalledApps({super.key});
@@ -116,7 +118,10 @@ class _InstalledAppsState extends State<InstalledApps> {
                   ),
                   itemCount: installedPrograms.length,
                   itemBuilder: (context, index) {
-                    return CompactAppCard(program: installedPrograms[index]);
+                    return CompactAppCard(
+                      key: ValueKey(installedPrograms[index].id),
+                      program: installedPrograms[index],
+                    );
                   },
                 );
               },
@@ -177,10 +182,39 @@ class _CompactAppCardState extends State<CompactAppCard> {
                     color: appItem.iconColor.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Icon(
-                    appItem.icon, 
-                    color: appItem.iconColor,
-                    size: 20,
+                  child: Center(
+                    child: appItem.iconAsset != null
+                        ? Padding(
+                            padding: const EdgeInsets.all(6.0),
+                            child: appItem.iconAsset!.endsWith('.svg')
+                                ? SvgPicture.asset(
+                                    appItem.iconAsset!,
+                                    width: 20,
+                                    height: 20,
+                                    fit: BoxFit.contain,
+                                    errorBuilder: (context, error, stackTrace) => Icon(
+                                      appItem.icon,
+                                      size: 18,
+                                      color: appItem.iconColor,
+                                    ),
+                                  )
+                                : Image.asset(
+                                    appItem.iconAsset!,
+                                    width: 20,
+                                    height: 20,
+                                    fit: BoxFit.contain,
+                                    errorBuilder: (context, error, stackTrace) => Icon(
+                                      appItem.icon,
+                                      size: 18,
+                                      color: appItem.iconColor,
+                                    ),
+                                  ),
+                          )
+                        : Icon(
+                            appItem.icon,
+                            color: appItem.iconColor,
+                            size: 20,
+                          ),
                   ),
                 ),
                 const SizedBox(width: 10),

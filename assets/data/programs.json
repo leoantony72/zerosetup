@@ -9,6 +9,8 @@
     "windows_script": "scripts/windows/install_postman.ps1",
     "linux_script": "scripts/linux/install_postman.sh",
     "mac_script": "scripts/mac/install_postman.sh",
+    "icon_slug": "postman-icon",
+    "icon_color": "FF6C37",
     "created_at": "2026-04-21T16:58:32+05:30"
   },
   {
@@ -21,6 +23,8 @@
     "windows_script": "scripts/windows/install_vscode.ps1",
     "linux_script": "scripts/linux/install_vscode.sh",
     "mac_script": "scripts/mac/install_vscode.sh",
+    "icon_slug": "visual-studio-code",
+    "icon_color": "007ACC",
     "created_at": "2026-04-21T16:58:32+05:30"
   },
   {
@@ -33,6 +37,8 @@
     "windows_script": "scripts/windows/install_spotify.ps1",
     "linux_script": "scripts/linux/install_spotify.sh",
     "mac_script": "scripts/mac/install_spotify.sh",
+    "icon_slug": "spotify-icon",
+    "icon_color": "1DB954",
     "created_at": "2026-04-21T16:58:32+05:30"
   },
   {
@@ -45,6 +51,8 @@
     "windows_script": "scripts/windows/install_chrome.ps1",
     "linux_script": "scripts/linux/install_chrome.sh",
     "mac_script": "scripts/mac/install_chrome.sh",
+    "icon_slug": "google-chrome",
+    "icon_color": "4285F4",
     "created_at": "2026-04-21T16:58:32+05:30"
   },
   {
@@ -57,6 +65,8 @@
     "windows_script": "scripts/windows/install_insomnia.ps1",
     "linux_script": "scripts/linux/install_insomnia.sh",
     "mac_script": "scripts/mac/install_insomnia.sh",
+    "icon_slug": "insomnia",
+    "icon_color": "4000BF",
     "created_at": "2026-04-21T17:40:00+05:30"
   },
   {
@@ -69,6 +79,8 @@
     "windows_script": "scripts/windows/install_httpie.ps1",
     "linux_script": "scripts/linux/install_httpie.sh",
     "mac_script": "scripts/mac/install_httpie.sh",
+    "icon_slug": "httpie-icon",
+    "icon_color": "5446EB",
     "created_at": "2026-04-21T17:40:00+05:30"
   },
   {
@@ -81,6 +93,8 @@
     "windows_script": "scripts/windows/install_tableplus.ps1",
     "linux_script": "scripts/linux/install_tableplus.sh",
     "mac_script": "scripts/mac/install_tableplus.sh",
+    "icon_slug": "tableplus",
+    "icon_color": "2D323E",
     "created_at": "2026-04-21T17:40:00+05:30"
   },
   {
@@ -93,6 +107,8 @@
     "windows_script": "scripts/windows/install_slack.ps1",
     "linux_script": "scripts/linux/install_slack.sh",
     "mac_script": "scripts/mac/install_slack.sh",
+    "icon_slug": "slack-icon",
+    "icon_color": "4A154B",
     "created_at": "2026-04-21T17:40:00+05:30"
   },
   {
@@ -105,6 +121,8 @@
     "windows_script": "scripts/windows/install_discord.ps1",
     "linux_script": "scripts/linux/install_discord.sh",
     "mac_script": "scripts/mac/install_discord.sh",
+    "icon_slug": "discord-icon",
+    "icon_color": "5865F2",
     "created_at": "2026-04-21T17:40:00+05:30"
   },
   {
@@ -117,6 +135,8 @@
     "windows_script": "scripts/windows/install_teams.ps1",
     "linux_script": "scripts/linux/install_teams.sh",
     "mac_script": "scripts/mac/install_teams.sh",
+    "icon_slug": "microsoft-teams",
+    "icon_color": "6264A7",
     "created_at": "2026-04-21T17:40:00+05:30"
   },
   {
@@ -129,6 +149,8 @@
     "windows_script": "scripts/windows/install_zoom.ps1",
     "linux_script": "scripts/linux/install_zoom.sh",
     "mac_script": "scripts/mac/install_zoom.sh",
+    "icon_slug": "zoom-icon",
+    "icon_color": "2D8CFF",
     "created_at": "2026-04-21T17:40:00+05:30"
   },
   {
@@ -141,6 +163,8 @@
     "windows_script": "scripts/windows/install_notion.ps1",
     "linux_script": "scripts/linux/install_notion.sh",
     "mac_script": "scripts/mac/install_notion.sh",
+    "icon_slug": "notion-icon",
+    "icon_color": "000000",
     "created_at": "2026-04-21T17:40:00+05:30"
   },
   {
@@ -153,6 +177,8 @@
     "windows_script": "scripts/windows/install_obsidian.ps1",
     "linux_script": "scripts/linux/install_obsidian.sh",
     "mac_script": "scripts/mac/install_obsidian.sh",
+    "icon_slug": "obsidian-icon",
+    "icon_color": "483699",
     "created_at": "2026-04-21T17:40:00+05:30"
   },
   {
@@ -165,6 +191,8 @@
     "windows_script": "scripts/windows/install_evernote.ps1",
     "linux_script": "scripts/linux/install_evernote.sh",
     "mac_script": "scripts/mac/install_evernote.sh",
+    "icon_slug": "evernote-icon",
+    "icon_color": "00A82D",
     "created_at": "2026-04-21T17:40:00+05:30"
   },
   {
@@ -177,6 +205,8 @@
     "windows_script": "scripts/windows/install_figma.ps1",
     "linux_script": "scripts/linux/install_figma.sh",
     "mac_script": "scripts/mac/install_figma.sh",
+    "icon_slug": "figma",
+    "icon_color": "F24E1E",
     "created_at": "2026-04-21T17:40:00+05:30"
   },
   {
@@ -189,6 +219,8 @@
     "windows_script": "scripts/windows/install_vlc.ps1",
     "linux_script": "scripts/linux/install_vlc.sh",
     "mac_script": "scripts/mac/install_vlc.sh",
+    "icon_slug": "vlc",
+    "icon_color": "FF8800",
     "created_at": "2026-04-21T17:40:00+05:30"
   },
   {
@@ -201,6 +233,8 @@
     "windows_script": "scripts/windows/install_obs.ps1",
     "linux_script": "scripts/linux/install_obs.sh",
     "mac_script": "scripts/mac/install_obs.sh",
+    "icon_slug": "obs-studio",
+    "icon_color": "302E31",
     "created_at": "2026-04-21T17:40:00+05:30"
   },
   {
@@ -213,6 +247,8 @@
     "windows_script": "scripts/windows/install_1password.ps1",
     "linux_script": "scripts/linux/install_1password.sh",
     "mac_script": "scripts/mac/install_1password.sh",
+    "icon_slug": "1password-icon",
+    "icon_color": "0094E3",
     "created_at": "2026-04-21T17:40:00+05:30"
   },
   {
@@ -225,6 +261,120 @@
     "windows_script": "scripts/windows/install_protonvpn.ps1",
     "linux_script": "scripts/linux/install_protonvpn.sh",
     "mac_script": "scripts/mac/install_protonvpn.sh",
+    "icon_slug": "protonvpn-icon",
+    "icon_color": "6D4AFF",
     "created_at": "2026-04-21T17:40:00+05:30"
+  },
+  {
+    "id": "go",
+    "program_name": "Go (Golang)",
+    "category": "Languages",
+    "version": "latest",
+    "size_mb": "65 MB",
+    "executable_cmd": "go",
+    "windows_script": "scripts/windows/install_go.ps1",
+    "linux_script": "scripts/linux/install_go.sh",
+    "mac_script": "scripts/mac/install_go.sh",
+    "icon_slug": "go",
+    "icon_color": "00ADD8",
+    "created_at": "2026-04-22T20:05:00+05:30"
+  },
+  {
+    "id": "python",
+    "program_name": "Python",
+    "category": "Languages",
+    "version": "latest",
+    "size_mb": "35 MB",
+    "executable_cmd": "python",
+    "windows_script": "scripts/windows/install_python.ps1",
+    "linux_script": "scripts/linux/install_python.sh",
+    "mac_script": "scripts/mac/install_python.sh",
+    "icon_slug": "python",
+    "icon_color": "3776AB",
+    "created_at": "2026-04-22T20:05:00+05:30"
+  },
+  {
+    "id": "rust",
+    "program_name": "Rust",
+    "category": "Languages",
+    "version": "latest",
+    "size_mb": "80 MB",
+    "executable_cmd": "rustc",
+    "windows_script": "scripts/windows/install_rust.ps1",
+    "linux_script": "scripts/linux/install_rust.sh",
+    "mac_script": "scripts/mac/install_rust.sh",
+    "icon_slug": "rust",
+    "icon_color": "000000",
+    "created_at": "2026-04-22T20:05:00+05:30"
+  },
+  {
+    "id": "nodejs",
+    "program_name": "Node.js",
+    "category": "Languages",
+    "version": "latest",
+    "size_mb": "32 MB",
+    "executable_cmd": "node",
+    "windows_script": "scripts/windows/install_nodejs.ps1",
+    "linux_script": "scripts/linux/install_nodejs.sh",
+    "mac_script": "scripts/mac/install_nodejs.sh",
+    "icon_slug": "nodejs-icon",
+    "icon_color": "339933",
+    "created_at": "2026-04-22T20:05:00+05:30"
+  },
+  {
+    "id": "java",
+    "program_name": "Java (JDK 21)",
+    "category": "Languages",
+    "version": "21",
+    "size_mb": "180 MB",
+    "executable_cmd": "java",
+    "windows_script": "scripts/windows/install_java.ps1",
+    "linux_script": "scripts/linux/install_java.sh",
+    "mac_script": "scripts/mac/install_java.sh",
+    "icon_slug": "java",
+    "icon_color": "007396",
+    "created_at": "2026-04-22T20:05:00+05:30"
+  },
+  {
+    "id": "r",
+    "program_name": "R Language",
+    "category": "Languages",
+    "version": "latest",
+    "size_mb": "85 MB",
+    "executable_cmd": "R",
+    "windows_script": "scripts/windows/install_r.ps1",
+    "linux_script": "scripts/linux/install_r.sh",
+    "mac_script": "scripts/mac/install_r.sh",
+    "icon_slug": "r-lang",
+    "icon_color": "276DC3",
+    "created_at": "2026-04-22T20:05:00+05:30"
+  },
+  {
+    "id": "cpp",
+    "program_name": "C/C++ Build Tools",
+    "category": "Languages",
+    "version": "latest",
+    "size_mb": "250 MB",
+    "executable_cmd": "gcc",
+    "windows_script": "scripts/windows/install_cpp.ps1",
+    "linux_script": "scripts/linux/install_cpp.sh",
+    "mac_script": "scripts/mac/install_cpp.sh",
+    "icon_slug": "c-plusplus",
+    "icon_color": "00599C",
+    "created_at": "2026-04-22T20:05:00+05:30"
+  },
+  {
+    "id": "csharp",
+    "program_name": "C# (.NET SDK)",
+    "category": "Languages",
+    "version": "8.0",
+    "size_mb": "200 MB",
+    "executable_cmd": "dotnet",
+    "windows_script": "scripts/windows/install_csharp.ps1",
+    "linux_script": "scripts/linux/install_csharp.sh",
+    "mac_script": "scripts/mac/install_csharp.sh",
+    "icon_slug": "c-sharp",
+    "icon_color": "512BD4",
+    "created_at": "2026-04-22T20:05:00+05:30"
   }
 ]

@@ -92,16 +92,8 @@ class _LibraryViewState extends State<LibraryView> {
                           _selectedCategory == 'All Apps' ||
                           p.category == _selectedCategory)
                       .map((p) {
-                        final item = p.toAppItem();
-                        return AppItem(
-                          title: item.title,
-                          description: item.description,
-                          version: item.version,
-                          icon: item.icon,
-                          iconColor: item.iconColor,
-                          typeLabel: item.typeLabel,
+                        return p.toAppItem().copyWith(
                           isInstalled: DetectionService.isInstalled(p.id),
-                          program: p,
                         );
                       })
                       .toList();

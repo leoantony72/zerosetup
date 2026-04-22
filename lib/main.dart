@@ -6,10 +6,9 @@ import 'services/settings_service.dart';
 import 'services/protocol_service.dart';
 import 'services/auth_service.dart';
 import 'services/initialization_service.dart';
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // Register the custom URI protocol for deep linking
   await ProtocolService.register();
   // Load environment variables

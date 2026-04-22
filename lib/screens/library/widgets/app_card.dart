@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../theme/app_colors.dart';
 import '../../../widgets/dialogs/installation_dialog.dart';
 import '../../../services/installation_service.dart';
 import '../../../services/detection_service.dart';
 import '../../../services/installation_manager.dart';
+import '../../../services/icon_service.dart';
 import '../models/library_models.dart';
 
 class AppCard extends StatefulWidget {
@@ -96,11 +98,38 @@ class _AppCardState extends State<AppCard> {
                         ),
                       ),
                       child: Center(
-                        child: Icon(
-                          widget.item.icon,
-                          size: 22,
-                          color: widget.item.iconColor,
-                        ),
+                        child: widget.item.iconAsset != null
+                            ? Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: widget.item.iconAsset!.endsWith('.svg')
+                                    ? SvgPicture.asset(
+                                        widget.item.iconAsset!,
+                                        width: 24,
+                                        height: 24,
+                                        fit: BoxFit.contain,
+                                        errorBuilder: (context, error, stackTrace) => Icon(
+                                          widget.item.icon,
+                                          size: 22,
+                                          color: widget.item.iconColor,
+                                        ),
+                                      )
+                                    : Image.asset(
+                                        widget.item.iconAsset!,
+                                        width: 24,
+                                        height: 24,
+                                        fit: BoxFit.contain,
+                                        errorBuilder: (context, error, stackTrace) => Icon(
+                                          widget.item.icon,
+                                          size: 22,
+                                          color: widget.item.iconColor,
+                                        ),
+                                      ),
+                              )
+                            : Icon(
+                                widget.item.icon,
+                                size: 22,
+                                color: widget.item.iconColor,
+                              ),
                       ),
                     ),
                     Container(
@@ -157,14 +186,18 @@ class _AppCardState extends State<AppCard> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        version,
-                        style: GoogleFonts.plusJakartaSans(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.onSurfaceVariant,
+                      Expanded(
+                        child: Text(
+                          version,
+                          style: GoogleFonts.plusJakartaSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.onSurfaceVariant,
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
+                      const SizedBox(width: 8),
                       if (isInstalled)
                         ElevatedButton(
                           onPressed: () {

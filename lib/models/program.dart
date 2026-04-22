@@ -11,6 +11,8 @@ class Program {
   final String linuxScript;
   final String macScript;
   final String sizeMb;
+  final String? iconSlug;
+  final String? iconColor;
   final DateTime createdAt;
 
   Program({
@@ -23,6 +25,8 @@ class Program {
     required this.linuxScript,
     required this.macScript,
     required this.sizeMb,
+    this.iconSlug,
+    this.iconColor,
     required this.createdAt,
   });
 
@@ -37,53 +41,75 @@ class Program {
       linuxScript: json['linux_script'],
       macScript: json['mac_script'],
       sizeMb: json['size_mb'] ?? 'Unknown',
+      iconSlug: json['icon_slug'],
+      iconColor: json['icon_color'],
       createdAt: DateTime.parse(json['created_at']),
     );
   }
 
   AppItem toAppItem() {
     IconData icon;
-    Color iconColor;
+    Color categoryColor;
 
     switch (category) {
       case 'IDEs & Editors':
         icon = Icons.code_rounded;
-        iconColor = Colors.blue;
+        categoryColor = Colors.blue;
         break;
       case 'DevOps':
         icon = Icons.terminal_rounded;
-        iconColor = Colors.purple;
+        categoryColor = Colors.purple;
         break;
       case 'Databases':
         icon = Icons.storage_rounded;
-        iconColor = Colors.orange;
+        categoryColor = Colors.orange;
+        break;
+      case 'Languages':
+        icon = Icons.translate_rounded;
+        categoryColor = Colors.teal;
         break;
       default:
         icon = Icons.settings_rounded;
-        iconColor = Colors.grey;
+        categoryColor = Colors.grey;
     }
 
-    // Specific overrides if needed
-    if (programName.toLowerCase().contains('spotify')) {
-      icon = Icons.library_music_rounded;
-      iconColor = Colors.green;
-    } else if (programName.toLowerCase().contains('chrome')) {
-      icon = Icons.public_rounded;
-      iconColor = Colors.redAccent;
-    } else if (programName.toLowerCase().contains('postman')) {
-      icon = Icons.api_rounded;
-      iconColor = Colors.orange;
+    // Official Icon URL from Simple Icons CDN
+    String? iconUrl;
+    Color displayColor = categoryColor;
+
+    if (iconSlug != null) {
+      final hex = iconColorHex;
+      iconUrl = 'https://api.iconify.design/logos:$iconSlug.svg';
+      
+      // Parse the brand color hex string to a Flutter Color
+      try {
+        displayColor = Color(int.parse('FF$hex', radix: 16));
+      } catch (e) {
+        displayColor = categoryColor;
+      }
+    }
+
+    String? iconAsset;
+    if (iconSlug != null) {
+      // Determine extension based on known PNG assets
+      final pngSlugs = {'vlc', 'tableplus'};
+      final ext = pngSlugs.contains(iconSlug) ? 'png' : 'svg';
+      iconAsset = 'assets/icons/logos_$iconSlug.$ext';
     }
 
     return AppItem(
       title: programName,
       description: 'ZeroSetup automated installation for $programName.',
       version: version,
+      iconUrl: iconUrl,
+      iconAsset: iconAsset,
       icon: icon,
-      iconColor: iconColor,
+      iconColor: displayColor, // Official brand color!
       typeLabel: category,
-      isInstalled: false, // Default to false for now
+      isInstalled: false,
       program: this,
     );
   }
+
+  String get iconColorHex => iconColor ?? '444444';
 }

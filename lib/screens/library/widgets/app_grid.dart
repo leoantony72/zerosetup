@@ -20,7 +20,10 @@ class AppGrid extends StatelessWidget {
       ),
       itemCount: apps.length,
       itemBuilder: (context, index) {
-        return AppCard(item: apps[index]);
+        return AppCard(
+          key: ValueKey(apps[index].program?.id ?? apps[index].title),
+          item: apps[index],
+        );
       },
     );
   }
