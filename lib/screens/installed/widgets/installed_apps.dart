@@ -6,6 +6,7 @@ import '../../../../models/program.dart';
 import '../../../../services/program_service.dart';
 import '../../../../services/detection_service.dart';
 import '../../../../services/icon_service.dart';
+import '../../../../widgets/dialogs/database_connection_dialog.dart';
 
 class InstalledApps extends StatefulWidget {
   const InstalledApps({super.key});
@@ -249,12 +250,20 @@ class _CompactAppCardState extends State<CompactAppCard> {
                   Material(
                     color: Colors.transparent,
                     child: InkWell(
-                      onTap: () => DetectionService.launchApp(widget.program),
+                      onTap: () {
+                        if (widget.program.isDatabase) {
+                          DatabaseConnectionDialog.show(context, widget.program);
+                        } else {
+                          DetectionService.launchApp(widget.program);
+                        }
+                      },
                       borderRadius: BorderRadius.circular(8),
                       child: Container(
                         padding: const EdgeInsets.all(6),
                         child: Icon(
-                          Icons.launch_rounded,
+                          widget.program.isDatabase
+                              ? Icons.cable_rounded
+                              : Icons.launch_rounded,
                           size: 16,
                           color: AppColors.primary,
                         ),

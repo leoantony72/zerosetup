@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../theme/app_colors.dart';
 import '../../../widgets/dialogs/installation_dialog.dart';
+import '../../../widgets/dialogs/database_connection_dialog.dart';
 import '../../../services/installation_service.dart';
 import '../../../services/detection_service.dart';
 import '../../../services/installation_manager.dart';
@@ -201,8 +202,12 @@ class _AppCardState extends State<AppCard> {
                       if (isInstalled)
                         ElevatedButton(
                           onPressed: () {
-                            if (widget.item.program != null) {
-                              DetectionService.launchApp(widget.item.program!);
+                            final prog = widget.item.program;
+                            if (prog == null) return;
+                            if (prog.isDatabase) {
+                              DatabaseConnectionDialog.show(context, prog);
+                            } else {
+                              DetectionService.launchApp(prog);
                             }
                           },
                           style: ElevatedButton.styleFrom(
@@ -218,7 +223,7 @@ class _AppCardState extends State<AppCard> {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          child: const Text('Open'),
+                          child: Text(widget.item.program?.isDatabase == true ? 'MANAGE' : 'Open'),
                         )
                       else if (isInstalling)
                         Expanded(

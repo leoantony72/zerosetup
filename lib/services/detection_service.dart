@@ -7,6 +7,9 @@ import '../models/program.dart';
 class DetectionService {
   static final Map<String, bool> _installedStatus = {};
   static final Map<String, String> _installedVersions = {};
+  static final Map<String, bool> _runningStatus = {};
+  static final Map<String, String> _serviceNames = {};
+  static final Map<String, String> _binPaths = {};
   static final ChangeNotifier statusNotifier = ChangeNotifier();
 
   static DateTime? _lastCheckTime;
@@ -18,6 +21,18 @@ class DetectionService {
 
   static String? getVersion(String programId) {
     return _installedVersions[programId];
+  }
+  
+  static bool isRunning(String programId) {
+    return _runningStatus[programId] ?? false;
+  }
+
+  static String? getServiceName(String programId) {
+    return _serviceNames[programId];
+  }
+
+  static String? getBinPath(String programId) {
+    return _binPaths[programId];
   }
 
   static Future<void> checkAll(List<Program> programs, {bool forceRefresh = false}) async {
@@ -83,6 +98,13 @@ class DetectionService {
         final List<dynamic> output = jsonDecode(result.stdout);
         for (var item in output) {
           _installedStatus[item['id']] = item['installed'] == true;
+          _runningStatus[item['id']] = item['isRunning'] == true;
+          if (item['serviceName'] != null && item['serviceName'].toString().isNotEmpty) {
+            _serviceNames[item['id']] = item['serviceName'];
+          }
+          if (item['binPath'] != null && item['binPath'].toString().isNotEmpty) {
+            _binPaths[item['id']] = item['binPath'];
+          }
           if (item['version'] != null && item['version'] != 'Not detected') {
             _installedVersions[item['id']] = item['version'];
           }
@@ -104,5 +126,46 @@ class DetectionService {
     } catch (e) {
       print('Launch error: $e');
     }
+  }
+
+  static Future<bool> startService(String programId) async {
+    final svcName = _serviceNames[programId];
+    if (svcName == null) return false;
+
+    try {
+      if (Platform.isWindows) {
+        await Process.run('powershell.exe', [
+          '-Command',
+          'Start-Process powershell -WindowStyle Hidden -ArgumentList "Start-Service -Name $svcName" -Verb RunAs'
+        ]);
+        _runningStatus[programId] = true;
+        statusNotifier.notifyListeners();
+        return true;
+      }
+    } catch (e) {
+      print('Start service error: $e');
+    }
+    return false;
+  }
+
+  static Future<bool> stopService(String programId) async {
+    final svcName = _serviceNames[programId];
+    if (svcName == null) return false;
+
+    try {
+      if (Platform.isWindows) {
+        // Stop service and ensure process is killed by finding its PID
+        await Process.run('powershell.exe', [
+          '-Command',
+          'Start-Process powershell -WindowStyle Hidden -ArgumentList "Stop-Service -Name $svcName -Force; \$p = (Get-CimInstance Win32_Service -Filter \'Name=\'\'$svcName\'\'\').ProcessId; if (\$p -gt 0) { Stop-Process -Id \$p -Force }" -Verb RunAs'
+        ]);
+        _runningStatus[programId] = false;
+        statusNotifier.notifyListeners();
+        return true;
+      }
+    } catch (e) {
+      print('Stop service error: $e');
+    }
+    return false;
   }
 }

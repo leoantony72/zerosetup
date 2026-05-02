@@ -112,4 +112,10 @@ class Program {
   }
 
   String get iconColorHex => iconColor ?? '444444';
+
+  /// True when this program is a database engine (not a GUI app).
+  bool get isDatabase => category == 'Databases' && const {
+    'postgresql', 'mysql', 'redis', 'mongodb', 'cassandra',
+    'cockroachdb', 'elasticsearch', 'mariadb', 'neo4j', 'clickhouse',
+  }.contains(id);
 }
